@@ -6,11 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Id;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import annotations.UniqueField;
@@ -28,7 +28,7 @@ public class Admin extends Account {
 	@NotEmpty(message = "Admin code không được để trống")
 	private String code;
 
-	@Column(name = "fullName", length = 100)
+	@Column(name = "full_name", length = 100)
 	@Size(max = 100, message = "Tên admin không được dài quá 100 kí tự")
 	@NotEmpty(message = "Tên admin không được để trống")
 	private String fullName;

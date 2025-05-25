@@ -3,7 +3,9 @@ package util;
 import javax.validation.Validation;
 import javax.validation.ValidatorFactory;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
@@ -37,7 +39,19 @@ public class HibernateUtil {
 	}
 	
 	public static void shutdown() {
-		getSessionFactory().close();
+//		clearData();
 		getValidatorFactory().close();
+		getSessionFactory().close();
+	}
+	
+	public static void clearData() {
+		String[] tables = {"Teacher"};
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tr = session.beginTransaction();
+		for (String table : tables) {
+			session.createQuery("DELETE FROM " + table).executeUpdate();
+		}
+		tr.commit();
+		session.close();
 	}
 }
