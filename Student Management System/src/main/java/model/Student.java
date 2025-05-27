@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -61,23 +63,26 @@ public class Student extends Account {
 	@JoinColumn(name = "student_class_id")
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@NotNull(message = "Không được để trống lớp học")
-	private StudentClass stdClass;
+	private StudentClass studentClass;
+	
+	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+	private Set<Grade> gradeList;
 	
 	public Student() {
 		super();
 		super.setRole(Role.STUDENT);
 	}
 	
-	public Student(String username, String password, AccountStatus status, String code, String fullName, String email, StudentClass stdClass) {
+	public Student(String username, String password, AccountStatus status, String code, String fullName, String email, StudentClass studentClass) {
 		super(username, password, Role.STUDENT, status);
 		this.code = code;
 		this.fullName = fullName;
 		this.email = email;
-		this.stdClass = stdClass;
+		this.studentClass = studentClass;
 	}
 
 	public Student(String username, String password, AccountStatus status, String code, String fullName, LocalDate dob, Gender gender, String email, String phoneNumber,
-			String address, StudentClass stdClass) {
+			String address, StudentClass studentClass) {
 		super(username, password, Role.STUDENT, status);
 		this.code = code;
 		this.fullName = fullName;
@@ -86,7 +91,7 @@ public class Student extends Account {
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
-		this.stdClass = stdClass;
+		this.studentClass = studentClass;
 	}
 
 	public String getCode() {
@@ -146,17 +151,17 @@ public class Student extends Account {
 	}
 
 	public StudentClass getStdClass() {
-		return stdClass;
+		return studentClass;
 	}
 
-	public void setStdClass(StudentClass stdClass) {
-		this.stdClass = stdClass;
+	public void setStdClass(StudentClass studentClass) {
+		this.studentClass = studentClass;
 	}
 
 	@Override
 	public String toString() {
 		return "Student [code=" + code + ", fullName=" + fullName + ", dob=" + dob + ", gender=" + gender + ", email="
-				+ email + ", phoneNumber=" + phoneNumber + ", address=" + address + ", stdClass=" + stdClass + "]";
+				+ email + ", phoneNumber=" + phoneNumber + ", address=" + address + ", stdClass=" + studentClass + "]";
 	}
 	
 }

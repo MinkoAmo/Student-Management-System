@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -30,6 +33,12 @@ public class TeachingClass extends Class {
 	@Column(name = "academic_year")
 	@NotNull(message = "Năm học không được để trống")
 	private int academicYear;
+	
+	@OneToMany(mappedBy = "teachingClass", cascade = CascadeType.ALL)
+	private Set<Grade> gradeList;
+	
+	@OneToMany(mappedBy = "teachingClass", cascade = CascadeType.ALL)
+	private Set<Schedule> scheduleList;
 
 	public TeachingClass() {
 		super();

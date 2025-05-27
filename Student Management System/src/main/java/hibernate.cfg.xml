@@ -18,5 +18,8 @@
   <mapping class="model.StudentClass"/>
   <mapping class="model.TeachingClass"/>
   <mapping class="model.Grade"/>
+  <mapping class="model.Building"/>
+  <mapping class="model.Room"/>
+  <mapping class="model.Schedule"/>
  </session-factory>
 </hibernate-configuration>

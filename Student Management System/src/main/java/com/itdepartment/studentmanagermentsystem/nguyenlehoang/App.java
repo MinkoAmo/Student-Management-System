@@ -19,8 +19,12 @@ import org.hibernate.Transaction;
 import enums.AccountStatus;
 import enums.Major;
 import enums.Subject;
+import enums.TimeSlot;
 import model.Admin;
+import model.Building;
 import model.Grade;
+import model.Room;
+import model.Schedule;
 import model.Student;
 import model.StudentClass;
 import model.Teacher;
@@ -30,6 +34,11 @@ import util.HibernateUtil;
 
 public class App {
 	public static void main(String[] args) {
+		init();
+	}
+	
+	public static void init() {
+
 		Faker faker = new Faker(new Locale("vi"));
 		Random rd = new Random();
 
@@ -39,11 +48,16 @@ public class App {
 		Set<StudentClass> studentClassList = new HashSet<StudentClass>();
 		Set<TeachingClass> teachingClassList = new HashSet<TeachingClass>();
 		Set<Grade> gradeList = new HashSet<Grade>();
+		Set<Building> buildingList = new HashSet<Building>();
+		Set<Room> roomList = new HashSet<Room>();
+		Set<Schedule> scheduleList = new HashSet<Schedule>();
 		
 		List<Teacher> teachers = new ArrayList<Teacher>();
 		List<Student> students = new ArrayList<Student>();
 		List<StudentClass> studentClasses = new ArrayList<StudentClass>();
 		List<TeachingClass> teachingClasses = new ArrayList<TeachingClass>();
+		List<Building> buildings = new ArrayList<Building>();
+		List<Room> rooms = new ArrayList<Room>();
 		
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -177,7 +191,6 @@ public class App {
 				Set<ConstraintViolation<Grade>> violations = validator.validate(grade);
 				if (violations.isEmpty()) {
 					session.save(grade);
-					System.out.println(grade);
 					System.out.println("Đã thêm điểm");
 				} else {
 					for (ConstraintViolation<Grade> violation : violations) {
@@ -185,6 +198,67 @@ public class App {
 					}
 				}
 			}
+			
+//			Thêm dữ liệu vào danh sách Building
+			buildingList.add(new Building("A01"));
+			buildingList.add(new Building("B02"));
+			buildingList.add(new Building("C03"));
+			
+//			Thêm dữ liệu vào bảng Building
+			for (Building building : buildingList) {
+				Set<ConstraintViolation<Building>> violations = validator.validate(building);
+				if (violations.isEmpty()) {
+					session.save(building);
+					buildings.add(building);
+					System.out.println("Đã thêm tòa nhà");
+				} else {
+					for (ConstraintViolation<Building> violation : violations) {
+						System.out.println(violation.getMessage());
+					}
+				}
+			}
+			
+//			Thêm dữ liệu vào danh sách Room
+			for (Building building : buildings) {
+				for (int i = 0; i < 5; i++) {
+					roomList.add(new Room(String.format("RM%04d%c", i+1, building.getName().charAt(0)), building));
+				}
+			}
+			
+//			Thêm dữ liệu vào bảng Room
+			for (Room room : roomList) {
+				Set<ConstraintViolation<Room>> violations = validator.validate(room);
+				if (violations.isEmpty()) {
+					session.save(room);
+					rooms.add(room);
+					System.out.println("Đã thêm phòng");
+				} else {
+					for (ConstraintViolation<Room> violation : violations) {
+						System.out.println(violation.getMessage());
+					}
+				}
+			}
+			
+//			Thêm dữ liệu vào danh sách Schedule
+			TimeSlot[] times = TimeSlot.values();
+			for (int i = 0; i < 20; i++) {
+				Schedule schedule = new Schedule(faker.date().birthday().toLocalDateTime().toLocalDate(), times[rd.nextInt(times.length)].getTimeRange(), rooms.get(rd.nextInt(rooms.size())), teachingClasses.get(rd.nextInt(teachingClasses.size())));
+				scheduleList.add(schedule);
+			}
+			
+//			Thêm dữ liệu vào bảng Schedule
+			for (Schedule schedule : scheduleList) {
+				Set<ConstraintViolation<Schedule>> violations = validator.validate(schedule);
+				if (violations.isEmpty()) {
+					session.save(schedule);
+					System.out.println("Đã thêm phòng");
+				} else {
+					for (ConstraintViolation<Schedule> violation : violations) {
+						System.out.println(violation.getMessage());
+					}
+				}
+			}
+			
 			trans.commit();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -20,16 +23,19 @@ public class StudentClass extends Class {
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "teacher_id")
 	@NotNull(message = "Giáo viên không được để trống")
-	Teacher teacher;
+	private Teacher teacher;
 	
 	@Column(name = "major")
 	@NotNull(message = "Tên ngành không được để trống")
 	@Enumerated(EnumType.STRING)
-	Major major;
+	private Major major;
 	
 	@Column(name = "course_year")
 	@NotNull(message = "Niên khóa không được để trống")
-	int courseYear;
+	private int courseYear;
+	
+	@OneToMany(mappedBy = "studentClass", cascade = CascadeType.ALL)
+	private Set<Student> studentList;
 	
 	public StudentClass() {
 		super();

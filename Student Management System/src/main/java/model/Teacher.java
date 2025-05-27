@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -69,10 +70,10 @@ public class Teacher extends Account {
 	@Size(max = 50, message = "Chuyên ngành quá dài")
 	private String specialization;
 	
-	@OneToMany(mappedBy = "teacher")
+	@OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
 	private Set<StudentClass> studentClassList;
 	
-	@OneToMany(mappedBy = "teacher")
+	@OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
 	private Set<TeachingClass> teachingClassLít;
 	
 
