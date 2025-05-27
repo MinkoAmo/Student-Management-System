@@ -1,10 +1,11 @@
 package com.itdepartment.studentmanagermentsystem.nguyenlehoang;
 
 import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Locale;
+import java.util.Random;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -16,25 +17,73 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import enums.AccountStatus;
+import enums.Major;
+import enums.Subject;
 import model.Admin;
+import model.Grade;
+import model.Student;
+import model.StudentClass;
 import model.Teacher;
+import model.TeachingClass;
+import net.datafaker.Faker;
 import util.HibernateUtil;
 
 public class App {
 	public static void main(String[] args) {
-		Set<Teacher> teacherList = (Set<Teacher>) init().get("teacherList");
-		Set<Admin> adminList = (Set<Admin>) init().get("adminList");
+		Faker faker = new Faker(new Locale("vi"));
+		Random rd = new Random();
+
+		Set<Admin> adminList = new HashSet<Admin>();
+		Set<Teacher> teacherList = new HashSet<Teacher>();
+		Set<Student> studentList = new HashSet<Student>();
+		Set<StudentClass> studentClassList = new HashSet<StudentClass>();
+		Set<TeachingClass> teachingClassList = new HashSet<TeachingClass>();
+		Set<Grade> gradeList = new HashSet<Grade>();
+		
+		List<Teacher> teachers = new ArrayList<Teacher>();
+		List<Student> students = new ArrayList<Student>();
+		List<StudentClass> studentClasses = new ArrayList<StudentClass>();
+		List<TeachingClass> teachingClasses = new ArrayList<TeachingClass>();
+		
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		try {
 			ValidatorFactory validatorFactory = HibernateUtil.getValidatorFactory();
 
 			Transaction trans = session.beginTransaction();
+			Validator validator = validatorFactory.getValidator();
+			
+//			Thêm dữ liệu vào danh sách admin
+			for (int i = 0; i < 3; i++) {
+				Admin adm = new Admin(faker.name().username(), faker.internet().password(), AccountStatus.ACTIVE, String.format("ADM%04d", i+1), faker.name().fullName(), faker.internet().emailAddress(), LocalDate.now());
+				adminList.add(adm);
+			}
+			
+//			Thêm dữ liệu vào bảng Admin
+			for (Admin admin : adminList) {
+				Set<ConstraintViolation<Admin>> violations = validator.validate(admin);
+				if (violations.isEmpty()) {
+					session.save(admin);
+					System.out.println("Đã thêm tài khoản");
+				} else {
+					for (ConstraintViolation<Admin> violation : violations) {
+						System.out.println(violation.getMessage());
+					}
+				}
+			}
+			
+//			Thêm dữ liệu vào danh sách teacher
+			for (int i = 0; i < 15; i++) {
+				Teacher tea = new Teacher(faker.name().username(), faker.internet().password(), AccountStatus.ACTIVE, String.format("TEA%04d", i+1), faker.name().fullName(), faker.internet().emailAddress());
+				teacherList.add(tea);
+			}
+			
+//			Thêm dữ liệu vào bảng Teacher
 			for (Teacher teacher : teacherList) {
-				Validator validator = validatorFactory.getValidator();
 				Set<ConstraintViolation<Teacher>> violations = validator.validate(teacher);
 				if (violations.isEmpty()) {
 					session.save(teacher);
+					teachers.add(teacher);
 					System.out.println("Đã thêm tài khoản");
 				} else {
 					for (ConstraintViolation<Teacher> violation : violations) {
@@ -42,15 +91,96 @@ public class App {
 					}
 				}
 			}
-			for (Admin admin : adminList) {
-				Validator validator = validatorFactory.getValidator();
-				Set<ConstraintViolation<Admin>> violations = validator.validate(admin);
+			
+//			Thêm dữ liệu vào danh sách StudentClass
+			studentClassList.add(new StudentClass("DS001", "Khoa học dữ liệu 1", teachers.get(rd.nextInt(teachers.size())), Major.DATA_SCIENCE, 2021));
+			studentClassList.add(new StudentClass("FI001", "Tài chính 1", teachers.get(rd.nextInt(teachers.size())), Major.FINANCE, 2022));
+			studentClassList.add(new StudentClass("LI001", "Ngôn ngữ học 1", teachers.get(rd.nextInt(teachers.size())), Major.LINGUISTICS, 2023));
+			studentClassList.add(new StudentClass("MA001", "Marketing 1", teachers.get(rd.nextInt(teachers.size())), Major.MARKETING, 2022));
+			studentClassList.add(new StudentClass("NS001", "An ninh mạng 1", teachers.get(rd.nextInt(teachers.size())), Major.NETWORK_SECURITY, 2021));
+			studentClassList.add(new StudentClass("SE001", "Kỹ thuật phần mềm 1", teachers.get(rd.nextInt(teachers.size())), Major.SOFTWARE_ENGINEERING, 2024));
+			studentClassList.add(new StudentClass("DS002", "Khoa học dữ liệu 2", teachers.get(rd.nextInt(teachers.size())), Major.DATA_SCIENCE, 2023));
+			
+//			Thêm dữ liệu vào bảng StudentClass
+			for (StudentClass studentClass : studentClassList) {
+				Set<ConstraintViolation<StudentClass>> violations = validator.validate(studentClass);
 				if (violations.isEmpty()) {
-					session.save(admin);
-					System.out.println(admin);
+					session.save(studentClass);
+					studentClasses.add(studentClass);
+					System.out.println("Đã thêm lớp học");
+				} else {
+					for (ConstraintViolation<StudentClass> violation : violations) {
+						System.out.println(violation.getMessage());
+					}
+				}
+			}
+			
+//			Thêm dữ liệu vào danh sách TeachingClass
+			teachingClassList.add(new TeachingClass("BDA20211", "Phân tích dữ liệu lớn 1", teachers.get(rd.nextInt(teachers.size())), Subject.BIG_DATA_ANALYTICS, 2021));
+			teachingClassList.add(new TeachingClass("ALG20212", "Thuật toán 2", teachers.get(rd.nextInt(teachers.size())), Subject.ALGORITHMS, 2021));
+			teachingClassList.add(new TeachingClass("DAT20221", "Khai phá dữ liệu 3", teachers.get(rd.nextInt(teachers.size())), Subject.DATA_MINING, 2022));
+			teachingClassList.add(new TeachingClass("SOC20222", "Xã hội ngôn ngữ học 4", teachers.get(rd.nextInt(teachers.size())), Subject.SOCIOLINGUISTICS, 2022));
+			teachingClassList.add(new TeachingClass("ML20231", "Học máy 5", teachers.get(rd.nextInt(teachers.size())), Subject.MACHINE_LEARNING, 2023));
+			teachingClassList.add(new TeachingClass("CRY20232", "Mật mã học 6", teachers.get(rd.nextInt(teachers.size())), Subject.CRYPTOGRAPHY, 2023));
+			teachingClassList.add(new TeachingClass("DMK20241", "Marketing kỹ thuật số 7", teachers.get(rd.nextInt(teachers.size())), Subject.DIGITAL_MARKETING, 2024));
+			teachingClassList.add(new TeachingClass("CYB20242", "An ninh mạng 8", teachers.get(rd.nextInt(teachers.size())), Subject.CYBER_SECURITY, 2024));
+			teachingClassList.add(new TeachingClass("LIN20211", "Nhập môn ngôn ngữ học 9", teachers.get(rd.nextInt(teachers.size())), Subject.INTRO_TO_LINGUISTICS, 2021));
+			teachingClassList.add(new TeachingClass("MKS20212", "Chiến lược marketing 10", teachers.get(rd.nextInt(teachers.size())), Subject.MARKETING_STRATEGY, 2021));
+			teachingClassList.add(new TeachingClass("STT20221", "Kiểm thử phần mềm 11", teachers.get(rd.nextInt(teachers.size())), Subject.SOFTWARE_TESTING, 2022));
+			teachingClassList.add(new TeachingClass("INV20222", "Phân tích đầu tư 12", teachers.get(rd.nextInt(teachers.size())), Subject.INVESTMENT_ANALYSIS, 2022));
+			teachingClassList.add(new TeachingClass("NSC20231", "An ninh mạng 13", teachers.get(rd.nextInt(teachers.size())), Subject.NETWORK_SECURITY, 2023));
+			teachingClassList.add(new TeachingClass("OPS20232", "Hệ điều hành 14", teachers.get(rd.nextInt(teachers.size())), Subject.OPERATING_SYSTEMS, 2023));
+			teachingClassList.add(new TeachingClass("ECO20241", "Kinh tế lượng 15", teachers.get(rd.nextInt(teachers.size())), Subject.ECONOMETRICS, 2024));
+
+//			Thêm dữ liệu vào bảng TeachingClass
+			for (TeachingClass teachingClass : teachingClassList) {
+				Set<ConstraintViolation<TeachingClass>> violations = validator.validate(teachingClass);
+				if (violations.isEmpty()) {
+					session.save(teachingClass);
+					teachingClasses.add(teachingClass);
+					System.out.println("Đã thêm lớp học");
+				} else {
+					for (ConstraintViolation<TeachingClass> violation : violations) {
+						System.out.println(violation.getMessage());
+					}
+				}
+			}
+			
+//			Thêm dữ liệu vào danh sách Student
+			for (int i = 0; i < 70; i++) {
+				Student std = new Student(faker.name().username(), faker.internet().password(), AccountStatus.ACTIVE, String.format("TEA%04d", i+1), faker.name().fullName(), faker.internet().emailAddress(), studentClasses.get(rd.nextInt(studentClasses.size())));
+				studentList.add(std);
+			}
+			
+//			Thêm dữ liệu vào bảng Student
+			for (Student student : studentList) {
+				Set<ConstraintViolation<Student>> violations = validator.validate(student);
+				if (violations.isEmpty()) {
+					session.save(student);
+					students.add(student);
 					System.out.println("Đã thêm tài khoản");
 				} else {
-					for (ConstraintViolation<Admin> violation : violations) {
+					for (ConstraintViolation<Student> violation : violations) {
+						System.out.println(violation.getMessage());
+					}
+				}
+			}
+			
+//			Thêm dữ liệu vào danh sách Grade
+			for (Student std : students) {
+				Grade grade = new Grade(std, teachingClasses.get(rd.nextInt(teachingClasses.size())));
+				gradeList.add(grade);
+			}
+			
+//			Thêm dữ liệu vào bảng Grade
+			for (Grade grade : gradeList) {
+				Set<ConstraintViolation<Grade>> violations = validator.validate(grade);
+				if (violations.isEmpty()) {
+					session.save(grade);
+					System.out.println(grade);
+					System.out.println("Đã thêm điểm");
+				} else {
+					for (ConstraintViolation<Grade> violation : violations) {
 						System.out.println(violation.getMessage());
 					}
 				}
@@ -62,86 +192,5 @@ public class App {
 			session.close();
 			HibernateUtil.shutdown();
 		}
-	}
-
-	public static Map<String, Set<?>> init() {
-		Map<String, Set<?>> map = new HashMap<>();
-
-		// Khởi tạo 5 Teacher
-		Teacher tea1 = new Teacher();
-		tea1.setUsername("minkoamo");
-		tea1.setPassword("Nguyenlehoang1@");
-		tea1.setStatus(AccountStatus.ACTIVE);
-		tea1.setCode("TCH001");
-		tea1.setFullName("Nguyen Le Hoang");
-		tea1.setEmail("nguyenlehoang@gentherm.com");
-
-		Teacher tea2 = new Teacher();
-		tea2.setUsername("trinhtrongnghia");
-		tea2.setPassword("TrinhNghia@2024");
-		tea2.setStatus(AccountStatus.ACTIVE);
-		tea2.setCode("TCH002");
-		tea2.setFullName("Trịnh Trọng Nghĩa");
-		tea2.setEmail("trinh.nghia@uet.vnu.edu.vn");
-
-		Teacher tea3 = new Teacher();
-		tea3.setUsername("phamthimai");
-		tea3.setPassword("MaiPham@123");
-		tea3.setStatus(AccountStatus.ACTIVE);
-		tea3.setCode("TCH003");
-		tea3.setFullName("Phạm Thị Mai");
-		tea3.setEmail("mai.pham@hust.edu.vn");
-
-		Teacher tea4 = new Teacher();
-		tea4.setUsername("nguyenquanghuy");
-		tea4.setPassword("HuyQuang@789");
-		tea4.setStatus(AccountStatus.ACTIVE);
-		tea4.setCode("TCH004");
-		tea4.setFullName("Nguyễn Quang Huy");
-		tea4.setEmail("quang.huy@fpt.edu.vn");
-
-		Teacher tea5 = new Teacher();
-		tea5.setUsername("dinhthuthao");
-		tea5.setPassword("ThaoDinh@456");
-		tea5.setStatus(AccountStatus.ACTIVE);
-		tea5.setCode("TCH005");
-		tea5.setFullName("Đinh Thị Thảo");
-		tea5.setEmail("thao.dinh@hcmus.edu.vn");
-
-		Set<Teacher> teacherList = new HashSet<>(List.of(tea1, tea2, tea3, tea4, tea5));
-		map.put("teacherList", teacherList);
-
-		// Khởi tạo 3 Admin
-		Admin adm1 = new Admin();
-		adm1.setUsername("phamthanhson");
-		adm1.setPassword("ThanhSon@987");
-		adm1.setStatus(AccountStatus.ACTIVE);
-		adm1.setCode("ADM001");
-		adm1.setFullName("Pham Thanh Son");
-		adm1.setEmail("son.pham@example.com");
-		adm1.setCreateDate(LocalDate.now());
-
-		Admin adm2 = new Admin();
-		adm2.setUsername("hoangkimngan");
-		adm2.setPassword("KimNgan@2024");
-		adm2.setStatus(AccountStatus.ACTIVE);
-		adm2.setCode("ADM002");
-		adm2.setFullName("Hoang Kim Ngan");
-		adm2.setEmail("ngan.hoang@example.com");
-		adm2.setCreateDate(LocalDate.now());
-
-		Admin adm3 = new Admin();
-		adm3.setUsername("vuquochung");
-		adm3.setPassword("QuocHung@888");
-		adm3.setStatus(AccountStatus.ACTIVE);
-		adm3.setCode("ADM003");
-		adm3.setFullName("Vu Quoc Hung");
-		adm3.setEmail("hung.vu@example.com");
-		adm3.setCreateDate(LocalDate.now());
-		
-		Set<Admin> adminList = new HashSet<>(List.of(adm1, adm2, adm3));
-		map.put("adminList", adminList);
-		
-		return map;
 	}
 }

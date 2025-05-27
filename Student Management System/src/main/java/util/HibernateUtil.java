@@ -17,6 +17,7 @@ public class HibernateUtil {
 			return new Configuration().configure().buildSessionFactory();
 		} catch (Exception e) {
 			System.out.println("Không thể khởi tạo SessionFactory");
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -26,6 +27,7 @@ public class HibernateUtil {
 			return Validation.buildDefaultValidatorFactory();
 		} catch (Exception e) {
 			System.out.println("Không thể khởi tạo ValidatorFactory");
+			e.printStackTrace();
 			return null;
 		}
 	}

@@ -1,0 +1,331 @@
+	public static Set<Admin> adminInit(){
+		// Khởi tạo 3 Admin
+		Set<Admin> adminList = new HashSet<Admin>();
+		
+		Admin adm1 = new Admin();
+		adm1.setUsername("phamthanhson");
+		adm1.setPassword("ThanhSon@987");
+		adm1.setStatus(AccountStatus.ACTIVE);
+		adm1.setCode("ADM001");
+		adm1.setFullName("Pham Thanh Son");
+		adm1.setEmail("son.pham@example.com");
+		adm1.setCreateDate(LocalDate.now());
+
+		Admin adm2 = new Admin();
+		adm2.setUsername("hoangkimngan");
+		adm2.setPassword("KimNgan@2024");
+		adm2.setStatus(AccountStatus.ACTIVE);
+		adm2.setCode("ADM002");
+		adm2.setFullName("Hoang Kim Ngan");
+		adm2.setEmail("ngan.hoang@example.com");
+		adm2.setCreateDate(LocalDate.now());
+
+		Admin adm3 = new Admin();
+		adm3.setUsername("vuquochung");
+		adm3.setPassword("QuocHung@888");
+		adm3.setStatus(AccountStatus.ACTIVE);
+		adm3.setCode("ADM003");
+		adm3.setFullName("Vu Quoc Hung");
+		adm3.setEmail("hung.vu@example.com");
+		adm3.setCreateDate(LocalDate.now());
+		
+		adminList.add(adm1);
+		adminList.add(adm2);
+		adminList.add(adm3);
+		
+		return adminList;
+	}
+	
+ 	public static Set<Student> studentInit() {
+//		Khởi tạo 70 học sinh
+		Student stu1 = new Student("tranthanhdat", "ThanhDat@2025", AccountStatus.ACTIVE, "STU001", "Tran Thanh Dat",
+				"dat.tran@student.edu.vn");
+		Student stu2 = new Student("nguyenvankien", "KienNguyen@2025", AccountStatus.ACTIVE, "STU002",
+				"Nguyen Van Kien", "kien.nguyen@student.edu.vn");
+		Student stu3 = new Student("lethikimanh", "KimAnh@2025", AccountStatus.ACTIVE, "STU003", "Le Thi Kim Anh",
+				"kimanh.le@student.edu.vn");
+		Student stu4 = new Student("phamducthanh", "DucThanh@2025", AccountStatus.ACTIVE, "STU004", "Pham Duc Thanh",
+				"thanh.pham@student.edu.vn");
+		Student stu5 = new Student("buitrungkien", "TrungKien@2025", AccountStatus.ACTIVE, "STU005", "Bui Trung Kien",
+				"kien.bui@student.edu.vn");
+		Student stu6 = new Student("ngothanhphuong", "ThanhPhuong@2025", AccountStatus.ACTIVE, "STU006",
+				"Ngo Thanh Phuong", "phuong.ngo@student.edu.vn");
+		Student stu7 = new Student("dothanhhien", "ThanhHien@2025", AccountStatus.ACTIVE, "STU007", "Do Thanh Hien",
+				"hien.do@student.edu.vn");
+		Student stu8 = new Student("phamhoanganh", "HoangAnh@2025", AccountStatus.ACTIVE, "STU008", "Pham Hoang Anh",
+				"hoanganh.pham@student.edu.vn");
+		Student stu9 = new Student("luongminhtam", "MinhTam@2025", AccountStatus.ACTIVE, "STU009", "Luong Minh Tam",
+				"tam.luong@student.edu.vn");
+		Student stu10 = new Student("nguyenthimai", "ThiMai@2025", AccountStatus.ACTIVE, "STU010", "Nguyen Thi Mai",
+				"mai.nguyen@student.edu.vn");
+		Student stu11 = new Student("student011", "Tam@2025", AccountStatus.ACTIVE, "STU011", "Le Minh Tam",
+				"le.minh.tam@student.edu.vn");
+		Student stu12 = new Student("student012", "Anh@2025", AccountStatus.ACTIVE, "STU012", "Do Van Anh",
+				"do.van.anh@student.edu.vn");
+		Student stu13 = new Student("student013", "Linh@2025", AccountStatus.ACTIVE, "STU013", "Nguyen Thi Linh",
+				"nguyen.thi.linh@student.edu.vn");
+		Student stu14 = new Student("student014", "Trang@2025", AccountStatus.ACTIVE, "STU014", "Tran Ngoc Trang",
+				"tran.ngoc.trang@student.edu.vn");
+		Student stu15 = new Student("student015", "Hien@2025", AccountStatus.ACTIVE, "STU015", "Ha Thanh Hien",
+				"ha.thanh.hien@student.edu.vn");
+		Student stu16 = new Student("student016", "Duy@2025", AccountStatus.ACTIVE, "STU016", "Mai Duc Duy",
+				"mai.duc.duy@student.edu.vn");
+		Student stu17 = new Student("student017", "Thao@2025", AccountStatus.ACTIVE, "STU017", "Vu Ngoc Thao",
+				"vu.ngoc.thao@student.edu.vn");
+		Student stu18 = new Student("student018", "Son@2025", AccountStatus.ACTIVE, "STU018", "Pham Quang Son",
+				"pham.quang.son@student.edu.vn");
+		Student stu19 = new Student("student019", "Nhi@2025", AccountStatus.ACTIVE, "STU019", "Vu Ngoc Nhi",
+				"vu.ngoc.nhi@student.edu.vn");
+		Student stu20 = new Student("student020", "Mai@2025", AccountStatus.ACTIVE, "STU020", "Nguyen Ngoc Mai",
+				"nguyen.ngoc.mai@student.edu.vn");
+		Student stu21 = new Student("student021", "Duy@2025", AccountStatus.ACTIVE, "STU021", "Quach Hoang Duy",
+				"quach.hoang.duy@student.edu.vn");
+		Student stu22 = new Student("student022", "Kien@2025", AccountStatus.ACTIVE, "STU022", "Ngo Thanh Kien",
+				"ngo.thanh.kien@student.edu.vn");
+		Student stu23 = new Student("student023", "Trung@2025", AccountStatus.ACTIVE, "STU023", "Trieu Hoang Trung",
+				"trieu.hoang.trung@student.edu.vn");
+		Student stu24 = new Student("student024", "Tuan@2025", AccountStatus.ACTIVE, "STU024", "Hoang Quang Tuan",
+				"hoang.quang.tuan@student.edu.vn");
+		Student stu25 = new Student("student025", "Duy@2025", AccountStatus.ACTIVE, "STU025", "Bui Hai Duy",
+				"bui.hai.duy@student.edu.vn");
+		Student stu26 = new Student("student026", "Trung@2025", AccountStatus.ACTIVE, "STU026", "Vu Van Trung",
+				"vu.van.trung@student.edu.vn");
+		Student stu27 = new Student("student027", "Kien@2025", AccountStatus.ACTIVE, "STU027", "Quach Minh Kien",
+				"quach.minh.kien@student.edu.vn");
+		Student stu28 = new Student("student028", "Dat@2025", AccountStatus.ACTIVE, "STU028", "Chu Quang Dat",
+				"chu.quang.dat@student.edu.vn");
+		Student stu29 = new Student("student029", "Tuan@2025", AccountStatus.ACTIVE, "STU029", "Ha Minh Tuan",
+				"ha.minh.tuan@student.edu.vn");
+		Student stu30 = new Student("student030", "Nghia@2025", AccountStatus.ACTIVE, "STU030", "Do Thanh Nghia",
+				"do.thanh.nghia@student.edu.vn");
+		Student stu31 = new Student("student031", "Tam@2025", AccountStatus.ACTIVE, "STU031", "Mai Thanh Tam",
+				"mai.thanh.tam@student.edu.vn");
+		Student stu32 = new Student("student032", "Mai@2025", AccountStatus.ACTIVE, "STU032", "Ly Thanh Mai",
+				"ly.thanh.mai@student.edu.vn");
+		Student stu33 = new Student("student033", "Huy@2025", AccountStatus.ACTIVE, "STU033", "Mai Minh Huy",
+				"mai.minh.huy@student.edu.vn");
+		Student stu34 = new Student("student034", "Nghia@2025", AccountStatus.ACTIVE, "STU034", "Vu Minh Nghia",
+				"vu.minh.nghia@student.edu.vn");
+		Student stu35 = new Student("student035", "Tuan@2025", AccountStatus.ACTIVE, "STU035", "Nguyen Thanh Tuan",
+				"nguyen.thanh.tuan@student.edu.vn");
+		Student stu36 = new Student("student036", "Trung@2025", AccountStatus.ACTIVE, "STU036", "Le Van Trung",
+				"le.van.trung@student.edu.vn");
+		Student stu37 = new Student("student037", "Son@2025", AccountStatus.ACTIVE, "STU037", "Luu Hai Son",
+				"luu.hai.son@student.edu.vn");
+		Student stu38 = new Student("student038", "Anh@2025", AccountStatus.ACTIVE, "STU038", "Dinh Van Anh",
+				"dinh.van.anh@student.edu.vn");
+		Student stu39 = new Student("student039", "Dat@2025", AccountStatus.ACTIVE, "STU039", "Chu Van Dat",
+				"chu.van.dat@student.edu.vn");
+		Student stu40 = new Student("student040", "Thao@2025", AccountStatus.ACTIVE, "STU040", "Ngo Minh Thao",
+				"ngo.minh.thao@student.edu.vn");
+		Student stu41 = new Student("student041", "Linh@2025", AccountStatus.ACTIVE, "STU041", "Pham Xuan Linh",
+				"pham.xuan.linh@student.edu.vn");
+		Student stu42 = new Student("student042", "Trang@2025", AccountStatus.ACTIVE, "STU042", "Dang Ngoc Trang",
+				"dang.ngoc.trang@student.edu.vn");
+		Student stu43 = new Student("student043", "Duy@2025", AccountStatus.ACTIVE, "STU043", "Kieu Duc Duy",
+				"kieu.duc.duy@student.edu.vn");
+		Student stu44 = new Student("student044", "Hien@2025", AccountStatus.ACTIVE, "STU044", "Do Thi Hien",
+				"do.thi.hien@student.edu.vn");
+		Student stu45 = new Student("student045", "Son@2025", AccountStatus.ACTIVE, "STU045", "Ly Van Son",
+				"ly.van.son@student.edu.vn");
+		Student stu46 = new Student("student046", "Mai@2025", AccountStatus.ACTIVE, "STU046", "Tran Duc Mai",
+				"tran.duc.mai@student.edu.vn");
+		Student stu47 = new Student("student047", "Anh@2025", AccountStatus.ACTIVE, "STU047", "Ton Thanh Anh",
+				"ton.thanh.anh@student.edu.vn");
+		Student stu48 = new Student("student048", "Tam@2025", AccountStatus.ACTIVE, "STU048", "Quach Xuan Tam",
+				"quach.xuan.tam@student.edu.vn");
+		Student stu49 = new Student("student049", "Tuan@2025", AccountStatus.ACTIVE, "STU049", "Le Quang Tuan",
+				"le.quang.tuan@student.edu.vn");
+		Student stu50 = new Student("student050", "Duy@2025", AccountStatus.ACTIVE, "STU050", "Ha Duc Duy",
+				"ha.duc.duy@student.edu.vn");
+		Student stu51 = new Student("student051", "Hien@2025", AccountStatus.ACTIVE, "STU051", "Chu Duc Hien",
+				"chu.duc.hien@student.edu.vn");
+		Student stu52 = new Student("student052", "Linh@2025", AccountStatus.ACTIVE, "STU052", "Ngo Xuan Linh",
+				"ngo.xuan.linh@student.edu.vn");
+		Student stu53 = new Student("student053", "Dat@2025", AccountStatus.ACTIVE, "STU053", "Ton Minh Dat",
+				"ton.minh.dat@student.edu.vn");
+		Student stu54 = new Student("student054", "Nghia@2025", AccountStatus.ACTIVE, "STU054", "Kieu Duc Nghia",
+				"kieu.duc.nghia@student.edu.vn");
+		Student stu55 = new Student("student055", "Thao@2025", AccountStatus.ACTIVE, "STU055", "Ly Ngoc Thao",
+				"ly.ngoc.thao@student.edu.vn");
+		Student stu56 = new Student("student056", "Trang@2025", AccountStatus.ACTIVE, "STU056", "Vu Thi Trang",
+				"vu.thi.trang@student.edu.vn");
+		Student stu57 = new Student("student057", "Son@2025", AccountStatus.ACTIVE, "STU057", "Dang Minh Son",
+				"dang.minh.son@student.edu.vn");
+		Student stu58 = new Student("student058", "Tam@2025", AccountStatus.ACTIVE, "STU058", "Luu Xuan Tam",
+				"luu.xuan.tam@student.edu.vn");
+		Student stu59 = new Student("student059", "Mai@2025", AccountStatus.ACTIVE, "STU059", "Trieu Ngoc Mai",
+				"trieu.ngoc.mai@student.edu.vn");
+		Student stu60 = new Student("student060", "Tuan@2025", AccountStatus.ACTIVE, "STU060", "Ha Duc Tuan",
+				"ha.duc.tuan@student.edu.vn");
+		Student stu61 = new Student("student061", "Anh@2025", AccountStatus.ACTIVE, "STU061", "Quach Hoang Anh",
+				"quach.hoang.anh@student.edu.vn");
+		Student stu62 = new Student("student062", "Duy@2025", AccountStatus.ACTIVE, "STU062", "Dinh Van Duy",
+				"dinh.van.duy@student.edu.vn");
+		Student stu63 = new Student("student063", "Huy@2025", AccountStatus.ACTIVE, "STU063", "Ngo Minh Huy",
+				"ngo.minh.huy@student.edu.vn");
+		Student stu64 = new Student("student064", "Linh@2025", AccountStatus.ACTIVE, "STU064", "Bui Ngoc Linh",
+				"bui.ngoc.linh@student.edu.vn");
+		Student stu65 = new Student("student065", "Trang@2025", AccountStatus.ACTIVE, "STU065", "Le Thi Trang",
+				"le.thi.trang@student.edu.vn");
+		Student stu66 = new Student("student066", "Son@2025", AccountStatus.ACTIVE, "STU066", "Nguyen Duc Son",
+				"nguyen.duc.son@student.edu.vn");
+		Student stu67 = new Student("student067", "Tam@2025", AccountStatus.ACTIVE, "STU067", "Do Xuan Tam",
+				"do.xuan.tam@student.edu.vn");
+		Student stu68 = new Student("student068", "Thao@2025", AccountStatus.ACTIVE, "STU068", "Pham Minh Thao",
+				"pham.minh.thao@student.edu.vn");
+		Student stu69 = new Student("student069", "Mai@2025", AccountStatus.ACTIVE, "STU069", "Dinh Hoang Mai",
+				"dinh.hoang.mai@student.edu.vn");
+		Student stu70 = new Student("student070", "Hien@2025", AccountStatus.ACTIVE, "STU070", "Tran Ngoc Hien",
+				"tran.ngoc.hien@student.edu.vn");
+
+		Set<Student> studentList = new HashSet<>(List.of(stu1, stu2, stu3, stu4, stu5, stu6, stu7, stu8, stu9, stu10,
+				stu11, stu12, stu13, stu14, stu15, stu16, stu17, stu18, stu19, stu20, stu21, stu22, stu23, stu24, stu25,
+				stu26, stu27, stu28, stu29, stu30, stu31, stu32, stu33, stu34, stu35, stu36, stu37, stu38, stu39, stu40,
+				stu41, stu42, stu43, stu44, stu45, stu46, stu47, stu48, stu49, stu50, stu51, stu52, stu53, stu54, stu55,
+				stu56, stu57, stu58, stu59, stu60, stu61, stu62, stu63, stu64, stu65, stu66, stu67, stu68, stu69,
+				stu70));
+
+		return studentList;
+	}
+
+	public static Set<Teacher> teacherInit() {
+		// Khởi tạo 5 Teacher
+		Teacher tea1 = new Teacher();
+		tea1.setUsername("minkoamo");
+		tea1.setPassword("Nguyenlehoang1@");
+		tea1.setStatus(AccountStatus.ACTIVE);
+		tea1.setCode("TCH001");
+		tea1.setFullName("Nguyen Le Hoang");
+		tea1.setEmail("nguyenlehoang@gentherm.com");
+
+		Teacher tea2 = new Teacher();
+		tea2.setUsername("trinhtrongnghia");
+		tea2.setPassword("TrinhNghia@2024");
+		tea2.setStatus(AccountStatus.ACTIVE);
+		tea2.setCode("TCH002");
+		tea2.setFullName("Trịnh Trọng Nghĩa");
+		tea2.setEmail("trinh.nghia@uet.vnu.edu.vn");
+
+		Teacher tea3 = new Teacher();
+		tea3.setUsername("phamthimai");
+		tea3.setPassword("MaiPham@123");
+		tea3.setStatus(AccountStatus.ACTIVE);
+		tea3.setCode("TCH003");
+		tea3.setFullName("Phạm Thị Mai");
+		tea3.setEmail("mai.pham@hust.edu.vn");
+
+		Teacher tea4 = new Teacher();
+		tea4.setUsername("nguyenquanghuy");
+		tea4.setPassword("HuyQuang@789");
+		tea4.setStatus(AccountStatus.ACTIVE);
+		tea4.setCode("TCH004");
+		tea4.setFullName("Nguyễn Quang Huy");
+		tea4.setEmail("quang.huy@fpt.edu.vn");
+
+		Teacher tea5 = new Teacher();
+		tea5.setUsername("dinhthuthao");
+		tea5.setPassword("ThaoDinh@456");
+		tea5.setStatus(AccountStatus.ACTIVE);
+		tea5.setCode("TCH005");
+		tea5.setFullName("Đinh Thị Thảo");
+		tea5.setEmail("thao.dinh@hcmus.edu.vn");
+
+		Teacher tea6 = new Teacher();
+		tea6.setUsername("lethanhtrung");
+		tea6.setPassword("TrungLe@123");
+		tea6.setStatus(AccountStatus.ACTIVE);
+		tea6.setCode("TCH006");
+		tea6.setFullName("Lê Thành Trung");
+		tea6.setEmail("trung.le@uit.edu.vn");
+
+		Teacher tea7 = new Teacher();
+		tea7.setUsername("hoangkimanh");
+		tea7.setPassword("KimAnh@456");
+		tea7.setStatus(AccountStatus.ACTIVE);
+		tea7.setCode("TCH007");
+		tea7.setFullName("Hoàng Kim Anh");
+		tea7.setEmail("kim.anh@hanu.edu.vn");
+
+		Teacher tea8 = new Teacher();
+		tea8.setUsername("vutuananh");
+		tea8.setPassword("TuanAnh@789");
+		tea8.setStatus(AccountStatus.ACTIVE);
+		tea8.setCode("TCH008");
+		tea8.setFullName("Vũ Tuấn Anh");
+		tea8.setEmail("tuan.anh@ctu.edu.vn");
+
+		Teacher tea9 = new Teacher();
+		tea9.setUsername("nguyenthuthuy");
+		tea9.setPassword("ThuThuy@321");
+		tea9.setStatus(AccountStatus.ACTIVE);
+		tea9.setCode("TCH009");
+		tea9.setFullName("Nguyễn Thu Thủy");
+		tea9.setEmail("thuy.nguyen@vnu.edu.vn");
+
+		Teacher tea10 = new Teacher();
+		tea10.setUsername("tranvandan");
+		tea10.setPassword("VanDan@147");
+		tea10.setStatus(AccountStatus.ACTIVE);
+		tea10.setCode("TCH010");
+		tea10.setFullName("Trần Văn Dần");
+		tea10.setEmail("dan.tran@tdtu.edu.vn");
+
+		Teacher tea11 = new Teacher();
+		tea11.setUsername("buituanminh");
+		tea11.setPassword("TuanMinh@159");
+		tea11.setStatus(AccountStatus.ACTIVE);
+		tea11.setCode("TCH011");
+		tea11.setFullName("Bùi Tuấn Minh");
+		tea11.setEmail("minh.bui@hutech.edu.vn");
+
+		Teacher tea12 = new Teacher();
+		tea12.setUsername("nguyenhoailinh");
+		tea12.setPassword("HoaiLinh@753");
+		tea12.setStatus(AccountStatus.ACTIVE);
+		tea12.setCode("TCH012");
+		tea12.setFullName("Nguyễn Hoài Linh");
+		tea12.setEmail("linh.nguyen@neu.edu.vn");
+
+		Teacher tea13 = new Teacher();
+		tea13.setUsername("phamngocthanh");
+		tea13.setPassword("NgocThanh@258");
+		tea13.setStatus(AccountStatus.ACTIVE);
+		tea13.setCode("TCH013");
+		tea13.setFullName("Phạm Ngọc Thanh");
+		tea13.setEmail("thanh.pham@ueh.edu.vn");
+
+		Teacher tea14 = new Teacher();
+		tea14.setUsername("trinhminhchau");
+		tea14.setPassword("MinhChau@852");
+		tea14.setStatus(AccountStatus.ACTIVE);
+		tea14.setCode("TCH014");
+		tea14.setFullName("Trịnh Minh Châu");
+		tea14.setEmail("chau.trinh@duytan.edu.vn");
+
+		Teacher tea15 = new Teacher();
+		tea15.setUsername("dangthihanh");
+		tea15.setPassword("ThiHanh@654");
+		tea15.setStatus(AccountStatus.ACTIVE);
+		tea15.setCode("TCH015");
+		tea15.setFullName("Đặng Thị Hạnh");
+		tea15.setEmail("hanh.dang@hcmute.edu.vn");
+		
+		Set<Teacher> teacherList = new HashSet<>(List.of(tea1, tea2, tea3, tea4, tea5, tea6, tea7, tea8, tea9, tea10,
+				tea11, tea12, tea13, tea14, tea15));
+		return teacherList;
+	}
+	
+	public static Set<StudentClass> studentClassInit(Set<Teacher> teacherList){
+		//Khởi tạo 7 lớp học
+		ArrayList<Teacher> teachers = new ArrayList<Teacher>(teacherList);
+		Set<StudentClass> classes = new HashSet<StudentClass>();
+		classes.add(new StudentClass("IT001", "Công nghệ thông tin 1", teachers.get(0), Major.DATA_SCIENCE, 2021));
+	    classes.add(new StudentClass("BA002", "Quản trị kinh doanh 1", teachers.get(1), Major.FINANCE, 2022));
+	    classes.add(new StudentClass("DS003", "Khoa học dữ liệu 1", teachers.get(2), Major.LINGUISTICS, 2023));
+	    classes.add(new StudentClass("IT004", "Công nghệ thông tin 2", teachers.get(0), Major.MARKETING, 2022));
+	    classes.add(new StudentClass("BA005", "Quản trị kinh doanh 2", teachers.get(3), Major.NETWORK_SECURITY, 2021));
+	    classes.add(new StudentClass("DS006", "Khoa học dữ liệu 2", teachers.get(4), Major.SOFTWARE_ENGINEERING, 2024));
+	    classes.add(new StudentClass("IT007", "Công nghệ thông tin 3", teachers.get(5), Major.DATA_SCIENCE, 2023)); 
+	    return classes;
+	}

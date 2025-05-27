@@ -1,11 +1,13 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -23,14 +25,14 @@ import enums.Role;
 @PrimaryKeyJoinColumn(name = "teacher_id")
 public class Teacher extends Account {
 	@Column(name = "teacher_code", length = 10, unique = true)
-	@UniqueField(entityClass = Teacher.class, fieldName = "code", message = "Teacher code đã tồn tại")
-	@Size(max = 10, message = "Teacher code không được dài quá 10 kí tự")
-	@NotEmpty(message = "Teacher code không được để trống")
+	@UniqueField(entityClass = Teacher.class, fieldName = "code", message = "Mã giáo viên đã tồn tại")
+	@Size(max = 10, message = "Mã giáo viên không được dài quá 10 kí tự")
+	@NotEmpty(message = "Mã giáo viên không được để trống")
 	private String code;
 
 	@Column(name = "full_name", length = 100)
-	@Size(max = 100, message = "Tên teacher không được dài quá 100 kí tự")
-	@NotEmpty(message = "Tên teacher không được để trống")
+	@Size(max = 100, message = "Tên giáo viên không được dài quá 100 kí tự")
+	@NotEmpty(message = "Tên giáo viên không được để trống")
 	private String fullName;
 
 	@Column(name = "dob")
@@ -66,6 +68,13 @@ public class Teacher extends Account {
 	@Column(name = "specialization", length = 50)
 	@Size(max = 50, message = "Chuyên ngành quá dài")
 	private String specialization;
+	
+	@OneToMany(mappedBy = "teacher")
+	private Set<StudentClass> studentClassList;
+	
+	@OneToMany(mappedBy = "teacher")
+	private Set<TeachingClass> teachingClassLít;
+	
 
 	public Teacher() {
 		super();

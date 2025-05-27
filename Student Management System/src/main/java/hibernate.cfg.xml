@@ -13,5 +13,10 @@
   <mapping class="model.Account"/>
   <mapping class="model.Admin"/>
   <mapping class="model.Teacher"/>
+  <mapping class="model.Student"/>
+  <mapping class="model.Class"/>
+  <mapping class="model.StudentClass"/>
+  <mapping class="model.TeachingClass"/>
+  <mapping class="model.Grade"/>
  </session-factory>
 </hibernate-configuration>

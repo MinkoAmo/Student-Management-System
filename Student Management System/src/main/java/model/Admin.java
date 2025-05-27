@@ -23,9 +23,9 @@ import enums.Role;
 @PrimaryKeyJoinColumn(name = "admin_id")
 public class Admin extends Account {
 	@Column(name = "admin_code", length = 10, unique = true)
-	@UniqueField(entityClass = Admin.class, fieldName = "code", message = "Admin code đã tồn tại")
-	@Size(max = 10, message = "Admin code không được dài quá 10 kí tự")
-	@NotEmpty(message = "Admin code không được để trống")
+	@UniqueField(entityClass = Admin.class, fieldName = "code", message = "Mã admin đã tồn tại")
+	@Size(max = 10, message = "Mã admin không được dài quá 10 kí tự")
+	@NotEmpty(message = "Mã admin không được để trống")
 	private String code;
 
 	@Column(name = "full_name", length = 100)
@@ -60,16 +60,16 @@ public class Admin extends Account {
 	}
 
 	public Admin(String username, String password, AccountStatus status, String code,
-			String fullName, String email) {
+			String fullName, String email, LocalDate createDate) {
 		super(username, password, Role.ADMIN, status);
 		this.code = code;
 		this.fullName = fullName;
 		this.email = email;
+		this.createDate = createDate;
 	}
 
-	public Admin(String account_id, String username, String password, AccountStatus status, String code,
-			String fullName, String email, String phoneNumber, AdminPosition adPos, LocalDate createDate,
-			LocalDate lastLoginTime) {
+	public Admin(String username, String password, AccountStatus status, String code, String fullName, String email,
+			String phoneNumber, AdminPosition adPos, LocalDate createDate, LocalDate lastLoginTime) {
 		super(username, password, Role.ADMIN, status);
 		this.code = code;
 		this.fullName = fullName;
