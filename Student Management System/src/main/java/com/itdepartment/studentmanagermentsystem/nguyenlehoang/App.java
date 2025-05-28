@@ -8,6 +8,8 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -31,10 +33,27 @@ import model.Teacher;
 import model.TeachingClass;
 import net.datafaker.Faker;
 import util.HibernateUtil;
+import view.MainWindows;
 
 public class App {
 	public static void main(String[] args) {
-		init();
+//		init();
+		new MainWindows();
+		try {
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void init() {
