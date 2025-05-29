@@ -12,8 +12,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import annotations.UniqueField;
-
 @Entity
 @Table(name = "class")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -25,7 +23,6 @@ public class Class {
 	private String id;
 
 	@Column(name = "class_code", length = 10, unique = true)
-	@UniqueField(entityClass = Class.class, fieldName = "code", message = "Mã lớp đã tồn tại")
 	@Size(max = 10, message = "Mã lớp không được dài quá 10 kí tự")
 	@NotEmpty(message = "Mã lớp không được để trống")
 	private String code;

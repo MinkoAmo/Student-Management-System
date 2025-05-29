@@ -15,7 +15,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import annotations.UniqueField;
 import enums.AccountStatus;
 import enums.Department;
 import enums.Gender;
@@ -26,7 +25,6 @@ import enums.Role;
 @PrimaryKeyJoinColumn(name = "teacher_id")
 public class Teacher extends Account {
 	@Column(name = "teacher_code", length = 10, unique = true)
-	@UniqueField(entityClass = Teacher.class, fieldName = "code", message = "Mã giáo viên đã tồn tại")
 	@Size(max = 10, message = "Mã giáo viên không được dài quá 10 kí tự")
 	@NotEmpty(message = "Mã giáo viên không được để trống")
 	private String code;
@@ -44,7 +42,6 @@ public class Teacher extends Account {
 	private Gender gender;
 
 	@Column(name = "email", length = 254, unique = true)
-	@UniqueField(entityClass = Teacher.class, fieldName = "email", message = "Email đã tồn tại")
 	@Size(max = 254, message = "Email không được dài quá 254 kí tự")
 	@Email(message = "Email không đúng định dạng")
 	@NotEmpty(message = "Email không được để trống")

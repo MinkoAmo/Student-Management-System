@@ -15,7 +15,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import annotations.UniqueField;
 import enums.AccountStatus;
 import enums.Role;
 
@@ -30,7 +29,6 @@ public class Account {
 	private String id;
 
 	@Column(name = "username", length = 50, unique = true)
-	@UniqueField(entityClass = Account.class, fieldName = "username", message = "Username đã tồn tại")
 	@Size(max = 50, message = "Username không được dài quá 50 kí tự")
 	@NotEmpty(message = "Username không được để trống")
 	private String username;

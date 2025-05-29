@@ -10,10 +10,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import annotations.UniqueField;
 import enums.AccountStatus;
 import enums.AdminPosition;
 import enums.Role;
@@ -23,7 +21,6 @@ import enums.Role;
 @PrimaryKeyJoinColumn(name = "admin_id")
 public class Admin extends Account {
 	@Column(name = "admin_code", length = 10, unique = true)
-	@UniqueField(entityClass = Admin.class, fieldName = "code", message = "Mã admin đã tồn tại")
 	@Size(max = 10, message = "Mã admin không được dài quá 10 kí tự")
 	@NotEmpty(message = "Mã admin không được để trống")
 	private String code;
@@ -34,7 +31,6 @@ public class Admin extends Account {
 	private String fullName;
 
 	@Column(name = "email", length = 254, unique = true)
-	@UniqueField(entityClass = Admin.class, fieldName = "email", message = "Email đã tồn tại")
 	@Size(max = 254, message = "Email không được dài quá 254 kí tự")
 	@Email(message = "Email không đúng định dạng")
 	@NotEmpty(message = "Email không được để trống")

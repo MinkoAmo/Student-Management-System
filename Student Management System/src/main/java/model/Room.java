@@ -17,8 +17,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import annotations.UniqueField;
-
 @Entity
 @Table(name = "room")
 public class Room {
@@ -29,7 +27,6 @@ public class Room {
 	private String id;
 	
 	@Column(name = "room_code", length = 10, unique = true)
-	@UniqueField(entityClass = Room.class, fieldName = "code", message = "Mã phòng đã tồn tại")
 	@Size(max = 10, message = "Mã phòng không được dài quá 10 kí tự")
 	@NotEmpty(message = "Mã phòng không được để trống")
 	private String code;
