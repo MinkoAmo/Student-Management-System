@@ -1,4 +1,4 @@
-package model;
+package entities;
 
 import java.util.Set;
 
@@ -69,10 +69,4 @@ public class Building {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-
-	@Override
-	public String toString() {
-		return "Building [id=" + id + ", name=" + name + ", location=" + location + "]";
-	}
-
 }

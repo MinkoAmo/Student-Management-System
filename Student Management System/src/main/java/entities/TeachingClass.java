@@ -1,4 +1,4 @@
-package model;
+package entities;
 
 import java.util.Set;
 
@@ -19,7 +19,7 @@ import enums.Subject;
 @Entity
 @Table(name = "teaching_class")
 @PrimaryKeyJoinColumn(name = "teaching_class_id")
-public class TeachingClass extends Class {
+public class TeachingClass extends BaseClass {
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "teacher_id")
 	@NotNull(message = "Giáo viên không được để trống")
@@ -33,10 +33,10 @@ public class TeachingClass extends Class {
 	@Column(name = "academic_year")
 	@NotNull(message = "Năm học không được để trống")
 	private int academicYear;
-	
+
 	@OneToMany(mappedBy = "teachingClass", cascade = CascadeType.ALL)
 	private Set<Grade> gradeList;
-	
+
 	@OneToMany(mappedBy = "teachingClass", cascade = CascadeType.ALL)
 	private Set<Schedule> scheduleList;
 
@@ -74,5 +74,4 @@ public class TeachingClass extends Class {
 	public void setAcademicYear(int academicYear) {
 		this.academicYear = academicYear;
 	}
-
 }

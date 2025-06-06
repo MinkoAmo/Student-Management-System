@@ -1,4 +1,4 @@
-package model;
+package entities;
 
 import java.time.LocalDate;
 
@@ -8,7 +8,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -30,12 +29,6 @@ public class Admin extends Account {
 	@NotEmpty(message = "Tên admin không được để trống")
 	private String fullName;
 
-	@Column(name = "email", length = 254, unique = true)
-	@Size(max = 254, message = "Email không được dài quá 254 kí tự")
-	@Email(message = "Email không đúng định dạng")
-	@NotEmpty(message = "Email không được để trống")
-	private String email;
-	
 	@Column(name = "phone_number", length = 20)
 	@Size(max = 20, message = "Số điện thoại không được dài quá 20 kí tự")
 	private String phoneNumber;
@@ -55,21 +48,19 @@ public class Admin extends Account {
 		super.setRole(Role.ADMIN);
 	}
 
-	public Admin(String username, String password, AccountStatus status, String code,
-			String fullName, String email, LocalDate createDate) {
-		super(username, password, Role.ADMIN, status);
+	public Admin(String username, String password, String email, AccountStatus status, String code, String fullName,
+			LocalDate createDate) {
+		super(username, password, email, Role.ADMIN, status);
 		this.code = code;
 		this.fullName = fullName;
-		this.email = email;
 		this.createDate = createDate;
 	}
 
-	public Admin(String username, String password, AccountStatus status, String code, String fullName, String email,
+	public Admin(String username, String password, String email, AccountStatus status, String code, String fullName,
 			String phoneNumber, AdminPosition adPos, LocalDate createDate, LocalDate lastLoginTime) {
-		super(username, password, Role.ADMIN, status);
+		super(username, password, email, Role.ADMIN, status);
 		this.code = code;
 		this.fullName = fullName;
-		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.adPos = adPos;
 		this.createDate = createDate;
@@ -94,14 +85,6 @@ public class Admin extends Account {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email.toLowerCase();
 	}
 
 	public String getPhoneNumber() {
@@ -135,12 +118,4 @@ public class Admin extends Account {
 	public void setLastLoginTime(LocalDate lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;
 	}
-
-	@Override
-	public String toString() {
-		return "Admin [code=" + code + ", fullName=" + fullName + ", email=" + email + ", phoneNumber="
-				+ phoneNumber + ", adPos=" + adPos + ", createDate=" + createDate + ", lastLoginTime=" + lastLoginTime
-				+ ", toString()=" + super.toString() + "]";
-	}
-
 }

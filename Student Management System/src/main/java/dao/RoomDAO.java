@@ -7,13 +7,14 @@ import java.util.Map;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import entities.Teacher;
+import entities.Room;
 import util.HibernateUtil;
 
-public class TeacherDAO implements DAOInterface<Teacher> {
+public class RoomDAO implements DAOInterface<Room> {
 
 	@Override
-	public void insert(Teacher t) {
+	public void insert(Room t) {
+		// TODO Auto-generated method stub
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			session.beginTransaction();
@@ -24,11 +25,10 @@ public class TeacherDAO implements DAOInterface<Teacher> {
 			if (tx != null)
 				tx.rollback();
 		}
-
 	}
 
 	@Override
-	public void update(Teacher t) {
+	public void update(Room t) {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -43,7 +43,7 @@ public class TeacherDAO implements DAOInterface<Teacher> {
 	}
 
 	@Override
-	public void delete(Teacher t) {
+	public void delete(Room t) {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -58,12 +58,12 @@ public class TeacherDAO implements DAOInterface<Teacher> {
 	}
 
 	@Override
-	public List<Teacher> selectAll() {
+	public List<Room> selectAll() {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			tx = session.beginTransaction();
-			ArrayList<Teacher> list = new ArrayList<Teacher>(session.createQuery("FROM Teacher").list());
+			ArrayList<Room> list = new ArrayList<Room>(session.createQuery("FROM Room").list());
 			tx.commit();
 			return list;
 		} catch (Exception e) {
@@ -75,15 +75,15 @@ public class TeacherDAO implements DAOInterface<Teacher> {
 	}
 
 	@Override
-	public Teacher selectByCode(String code) {
+	public Room selectByCode(String code) {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			tx = session.beginTransaction();
-			Teacher tea = (Teacher) session.createQuery("FROM Teacher a WHERE a.code = :code")
-					.setParameter("code", code).uniqueResult();
+			Room room = (Room) session.createQuery("FROM Room a WHERE a.code = :code").setParameter("code", code)
+					.uniqueResult();
 			tx.commit();
-			return tea;
+			return room;
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (tx != null)
@@ -93,34 +93,22 @@ public class TeacherDAO implements DAOInterface<Teacher> {
 	}
 
 	@Override
-	public ArrayList<Teacher> selectByCondition(Map<String, Object> filters) {
+	public ArrayList<Room> selectByCondition(Map<String, Object> filters) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean existsBy(String nameField, Teacher t) {
+	public boolean existsBy(String nameField, Room t) {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			tx = session.beginTransaction();
 			int count = 0;
 			switch (nameField) {
-			case "username": {
-				count = (int) session
-						.createQuery("SELECT count(username) FROM Account a WHERE a.username = :username AND a.id != :id")
-						.setParameter("username", t.getUsername()).setParameter("id", t.getId()).uniqueResult();
-				break;
-			}
-			case "email": {
-				count = (int) session
-						.createQuery("SELECT count(email) FROM Account a WHERE a.email = :email AND a.id != :id")
-						.setParameter("email", t.getEmail()).setParameter("id", t.getId()).uniqueResult();
-				break;
-			}
 			case "code": {
 				count = (int) session
-						.createQuery("SELECT count(code) FROM Teacher a WHERE a.code = :code AND a.id != :id")
+						.createQuery("SELECT count(code) FROM Building a WHERE a.code = :code AND a.id != :id")
 						.setParameter("code", t.getCode()).setParameter("id", t.getId()).uniqueResult();
 				break;
 			}

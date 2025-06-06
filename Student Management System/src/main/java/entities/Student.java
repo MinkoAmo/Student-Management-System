@@ -1,4 +1,4 @@
-package model;
+package entities;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -30,62 +29,55 @@ public class Student extends Account {
 	@Size(max = 10, message = "Mã học sinh không được dài quá 10 kí tự")
 	@NotEmpty(message = "Mã học sinh không được để trống")
 	private String code;
-	
+
 	@Column(name = "full_name", length = 100)
 	@Size(max = 100, message = "Tên học sinh không được dài quá 100 kí tự")
 	@NotEmpty(message = "Tên học sinh không được để trống")
 	private String fullName;
-	
+
 	@Column(name = "dob")
 	private LocalDate dob;
-	
+
 	@Column(name = "gender")
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
-	
-	@Column(name = "email", length = 254, unique = true)
-	@Size(max = 254, message = "Email không được dài quá 254 kí tự")
-	@Email(message = "Email không đúng định dạng")
-	@NotEmpty(message = "Email không được để trống")
-	private String email;
-	
+
 	@Column(name = "phone_number", length = 20)
 	@Size(max = 20, message = "Số điện thoại không được dài quá 20 kí tự")
 	private String phoneNumber;
-	
+
 	@Column(name = "address", length = 255)
 	@Size(max = 255, message = "Địa chỉ quá dài")
 	private String address;
-	
+
 	@JoinColumn(name = "student_class_id")
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@NotNull(message = "Không được để trống lớp học")
 	private StudentClass studentClass;
-	
+
 	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
 	private Set<Grade> gradeList;
-	
+
 	public Student() {
 		super();
 		super.setRole(Role.STUDENT);
 	}
-	
-	public Student(String username, String password, AccountStatus status, String code, String fullName, String email, StudentClass studentClass) {
-		super(username, password, Role.STUDENT, status);
+
+	public Student(String username, String password, String email, AccountStatus status, String code, String fullName,
+			StudentClass studentClass) {
+		super(username, password, email, Role.STUDENT, status);
 		this.code = code;
 		this.fullName = fullName;
-		this.email = email;
 		this.studentClass = studentClass;
 	}
 
-	public Student(String username, String password, AccountStatus status, String code, String fullName, LocalDate dob, Gender gender, String email, String phoneNumber,
-			String address, StudentClass studentClass) {
-		super(username, password, Role.STUDENT, status);
+	public Student(String username, String password, String email, AccountStatus status, String code, String fullName,
+			LocalDate dob, Gender gender, String phoneNumber, String address, StudentClass studentClass) {
+		super(username, password, email, Role.STUDENT, status);
 		this.code = code;
 		this.fullName = fullName;
 		this.dob = dob;
 		this.gender = gender;
-		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.studentClass = studentClass;
@@ -123,14 +115,6 @@ public class Student extends Account {
 		this.gender = gender;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -154,11 +138,4 @@ public class Student extends Account {
 	public void setStdClass(StudentClass studentClass) {
 		this.studentClass = studentClass;
 	}
-
-	@Override
-	public String toString() {
-		return "Student [code=" + code + ", fullName=" + fullName + ", dob=" + dob + ", gender=" + gender + ", email="
-				+ email + ", phoneNumber=" + phoneNumber + ", address=" + address + ", stdClass=" + studentClass + "]";
-	}
-	
 }

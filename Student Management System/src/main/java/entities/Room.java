@@ -1,4 +1,4 @@
-package model;
+package entities;
 
 import java.util.Set;
 
@@ -88,10 +88,4 @@ public class Room {
 	public void setBuilding(Building building) {
 		this.building = building;
 	}
-
-	@Override
-	public String toString() {
-		return "Room [id=" + id + ", code=" + code + ", type=" + type + ", building=" + building + "]";
-	}
-
 }

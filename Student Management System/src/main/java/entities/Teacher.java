@@ -1,4 +1,4 @@
-package model;
+package entities;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -11,7 +11,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -41,12 +40,6 @@ public class Teacher extends Account {
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 
-	@Column(name = "email", length = 254, unique = true)
-	@Size(max = 254, message = "Email không được dài quá 254 kí tự")
-	@Email(message = "Email không đúng định dạng")
-	@NotEmpty(message = "Email không được để trống")
-	private String email;
-
 	@Column(name = "phone_number", length = 20)
 	@Size(max = 20, message = "Số điện thoại không được dài quá 20 kí tự")
 	private String phoneNumber;
@@ -66,35 +59,32 @@ public class Teacher extends Account {
 	@Column(name = "specialization", length = 50)
 	@Size(max = 50, message = "Chuyên ngành quá dài")
 	private String specialization;
-	
+
 	@OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
 	private Set<StudentClass> studentClassList;
-	
+
 	@OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
 	private Set<TeachingClass> teachingClassLít;
-	
 
 	public Teacher() {
 		super();
 		super.setRole(Role.TEACHER);
 	}
 
-	public Teacher(String username, String password, AccountStatus status, String code, String fullName, String email) {
-		super(username, password, Role.TEACHER, status);
+	public Teacher(String username, String password, String email, AccountStatus status, String code, String fullName) {
+		super(username, password, email, Role.TEACHER, status);
 		this.code = code;
 		this.fullName = fullName;
-		this.email = email;
 	}
 
-	public Teacher(String username, String password, AccountStatus status, String code,
-			String fullName, LocalDate dob, Gender gender, String email, String phoneNumber, String address,
-			Department dept, String academicTitle, String specialization) {
-		super(username, password, Role.TEACHER, status);
+	public Teacher(String username, String password, String email, AccountStatus status, String code, String fullName,
+			LocalDate dob, Gender gender, String phoneNumber, String address, Department dept, String academicTitle,
+			String specialization) {
+		super(username, password, email, Role.TEACHER, status);
 		this.code = code;
 		this.fullName = fullName;
 		this.dob = dob;
 		this.gender = gender;
-		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.dept = dept;
@@ -132,14 +122,6 @@ public class Teacher extends Account {
 
 	public void setGender(Gender gender) {
 		this.gender = gender;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email.toLowerCase();
 	}
 
 	public String getPhoneNumber() {
@@ -180,13 +162,5 @@ public class Teacher extends Account {
 
 	public void setSpecialization(String specialization) {
 		this.specialization = specialization;
-	}
-
-	@Override
-	public String toString() {
-		return "Teacher [code=" + code + ", fullName=" + fullName + ", dob=" + dob + ", gender=" + gender
-				+ ", email=" + email + ", phoneNumber=" + phoneNumber + ", address=" + address + ", dept=" + dept
-				+ ", academicTitle=" + academicTitle + ", specialization=" + specialization + ", toString()="
-				+ super.toString() + "]";
 	}
 }

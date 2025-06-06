@@ -7,13 +7,14 @@ import java.util.Map;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import entities.Teacher;
+import entities.StudentClass;
 import util.HibernateUtil;
 
-public class TeacherDAO implements DAOInterface<Teacher> {
+public class StudentClassDAO implements DAOInterface<StudentClass> {
 
 	@Override
-	public void insert(Teacher t) {
+	public void insert(StudentClass t) {
+		// TODO Auto-generated method stub
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			session.beginTransaction();
@@ -24,11 +25,10 @@ public class TeacherDAO implements DAOInterface<Teacher> {
 			if (tx != null)
 				tx.rollback();
 		}
-
 	}
 
 	@Override
-	public void update(Teacher t) {
+	public void update(StudentClass t) {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -43,7 +43,7 @@ public class TeacherDAO implements DAOInterface<Teacher> {
 	}
 
 	@Override
-	public void delete(Teacher t) {
+	public void delete(StudentClass t) {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -58,12 +58,12 @@ public class TeacherDAO implements DAOInterface<Teacher> {
 	}
 
 	@Override
-	public List<Teacher> selectAll() {
+	public List<StudentClass> selectAll() {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			tx = session.beginTransaction();
-			ArrayList<Teacher> list = new ArrayList<Teacher>(session.createQuery("FROM Teacher").list());
+			ArrayList<StudentClass> list = new ArrayList<StudentClass>(session.createQuery("FROM StudentClass").list());
 			tx.commit();
 			return list;
 		} catch (Exception e) {
@@ -75,15 +75,15 @@ public class TeacherDAO implements DAOInterface<Teacher> {
 	}
 
 	@Override
-	public Teacher selectByCode(String code) {
+	public StudentClass selectByCode(String code) {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			tx = session.beginTransaction();
-			Teacher tea = (Teacher) session.createQuery("FROM Teacher a WHERE a.code = :code")
+			StudentClass sc = (StudentClass) session.createQuery("FROM StudentClass sc WHERE sc.code = :code")
 					.setParameter("code", code).uniqueResult();
 			tx.commit();
-			return tea;
+			return sc;
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (tx != null)
@@ -93,34 +93,22 @@ public class TeacherDAO implements DAOInterface<Teacher> {
 	}
 
 	@Override
-	public ArrayList<Teacher> selectByCondition(Map<String, Object> filters) {
+	public ArrayList<StudentClass> selectByCondition(Map<String, Object> filters) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean existsBy(String nameField, Teacher t) {
+	public boolean existsBy(String nameField, StudentClass t) {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			tx = session.beginTransaction();
 			int count = 0;
 			switch (nameField) {
-			case "username": {
-				count = (int) session
-						.createQuery("SELECT count(username) FROM Account a WHERE a.username = :username AND a.id != :id")
-						.setParameter("username", t.getUsername()).setParameter("id", t.getId()).uniqueResult();
-				break;
-			}
-			case "email": {
-				count = (int) session
-						.createQuery("SELECT count(email) FROM Account a WHERE a.email = :email AND a.id != :id")
-						.setParameter("email", t.getEmail()).setParameter("id", t.getId()).uniqueResult();
-				break;
-			}
 			case "code": {
 				count = (int) session
-						.createQuery("SELECT count(code) FROM Teacher a WHERE a.code = :code AND a.id != :id")
+						.createQuery("SELECT count(code) FROM StudentClass a WHERE a.code = :code AND a.id != :id")
 						.setParameter("code", t.getCode()).setParameter("id", t.getId()).uniqueResult();
 				break;
 			}
@@ -134,5 +122,4 @@ public class TeacherDAO implements DAOInterface<Teacher> {
 			return false;
 		}
 	}
-
 }

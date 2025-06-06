@@ -1,4 +1,4 @@
-package model;
+package entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "class")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Class {
+public class BaseClass {
 	@Id
 	@GeneratedValue(generator = "uuid2")
 	@GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
@@ -32,10 +32,10 @@ public class Class {
 	@NotEmpty(message = "Tên lớp không được để trống")
 	private String name;
 
-	public Class() {
+	public BaseClass() {
 	}
 
-	public Class(String code, String name) {
+	public BaseClass(String code, String name) {
 		this.code = code;
 		this.name = name;
 	}
@@ -63,10 +63,4 @@ public class Class {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	@Override
-	public String toString() {
-		return "Class [id=" + id + ", code=" + code + ", name=" + name + "]";
-	}
-	
 }

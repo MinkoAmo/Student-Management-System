@@ -7,13 +7,15 @@ import java.util.Map;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import entities.Teacher;
+import entities.Room;
+import entities.Schedule;
 import util.HibernateUtil;
 
-public class TeacherDAO implements DAOInterface<Teacher> {
+public class ScheduleDAO implements DAOInterface<Schedule> {
 
 	@Override
-	public void insert(Teacher t) {
+	public void insert(Schedule t) {
+		// TODO Auto-generated method stub
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			session.beginTransaction();
@@ -24,11 +26,10 @@ public class TeacherDAO implements DAOInterface<Teacher> {
 			if (tx != null)
 				tx.rollback();
 		}
-
 	}
 
 	@Override
-	public void update(Teacher t) {
+	public void update(Schedule t) {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -43,7 +44,7 @@ public class TeacherDAO implements DAOInterface<Teacher> {
 	}
 
 	@Override
-	public void delete(Teacher t) {
+	public void delete(Schedule t) {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -58,12 +59,12 @@ public class TeacherDAO implements DAOInterface<Teacher> {
 	}
 
 	@Override
-	public List<Teacher> selectAll() {
+	public List<Schedule> selectAll() {
 		// TODO Auto-generated method stub
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			tx = session.beginTransaction();
-			ArrayList<Teacher> list = new ArrayList<Teacher>(session.createQuery("FROM Teacher").list());
+			ArrayList<Schedule> list = new ArrayList<Schedule>(session.createQuery("FROM Schedule").list());
 			tx.commit();
 			return list;
 		} catch (Exception e) {
@@ -75,58 +76,33 @@ public class TeacherDAO implements DAOInterface<Teacher> {
 	}
 
 	@Override
-	public Teacher selectByCode(String code) {
-		// TODO Auto-generated method stub
-		Transaction tx = null;
-		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-			tx = session.beginTransaction();
-			Teacher tea = (Teacher) session.createQuery("FROM Teacher a WHERE a.code = :code")
-					.setParameter("code", code).uniqueResult();
-			tx.commit();
-			return tea;
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (tx != null)
-				tx.rollback();
-			return null;
-		}
-	}
-
-	@Override
-	public ArrayList<Teacher> selectByCondition(Map<String, Object> filters) {
+	public Schedule selectByCode(String code) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean existsBy(String nameField, Teacher t) {
+	public ArrayList<Schedule> selectByCondition(Map<String, Object> filters) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean existsBy(String nameField, Schedule t) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean existsBy(Schedule t) {
 		Transaction tx = null;
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			tx = session.beginTransaction();
-			int count = 0;
-			switch (nameField) {
-			case "username": {
-				count = (int) session
-						.createQuery("SELECT count(username) FROM Account a WHERE a.username = :username AND a.id != :id")
-						.setParameter("username", t.getUsername()).setParameter("id", t.getId()).uniqueResult();
-				break;
-			}
-			case "email": {
-				count = (int) session
-						.createQuery("SELECT count(email) FROM Account a WHERE a.email = :email AND a.id != :id")
-						.setParameter("email", t.getEmail()).setParameter("id", t.getId()).uniqueResult();
-				break;
-			}
-			case "code": {
-				count = (int) session
-						.createQuery("SELECT count(code) FROM Teacher a WHERE a.code = :code AND a.id != :id")
-						.setParameter("code", t.getCode()).setParameter("id", t.getId()).uniqueResult();
-				break;
-			}
-			}
+			Schedule s = (Schedule) session
+					.createQuery("From Schedule s Where s.id != :id AND s.date = :date AND s.timeSlot = :timeSlot")
+					.setParameter("id", t.getId()).setParameter("date", t.getDate())
+					.setParameter("timeSlot", t.getTimeSlot()).uniqueResult();
 			tx.commit();
-			return count == 0;
+			return s == null;
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (tx != null)
@@ -134,5 +110,4 @@ public class TeacherDAO implements DAOInterface<Teacher> {
 			return false;
 		}
 	}
-
 }

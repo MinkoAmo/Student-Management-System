@@ -10,16 +10,17 @@
   <property name="hibernate.connection.password"/>
   <property name="hibernate.show_sql">true</property>
   <property name="hibernate.hbm2ddl.auto">update</property>
-  <mapping class="model.Account"/>
-  <mapping class="model.Admin"/>
-  <mapping class="model.Teacher"/>
-  <mapping class="model.Student"/>
-  <mapping class="model.Class"/>
-  <mapping class="model.StudentClass"/>
-  <mapping class="model.TeachingClass"/>
-  <mapping class="model.Grade"/>
-  <mapping class="model.Building"/>
-  <mapping class="model.Room"/>
-  <mapping class="model.Schedule"/>
+  <mapping class="entities.Account"/>
+  <mapping class="entities.Admin"/>
+  <mapping class="entities.Teacher"/>
+  <mapping class="entities.Student"/>
+  <mapping class="entities.BaseClass"/>
+  <mapping class="entities.StudentClass"/>
+  <mapping class="entities.TeachingClass"/>
+  <mapping class="entities.Grade"/>
+  <mapping class="entities.Building"/>
+  <mapping class="entities.Room"/>
+  <mapping class="entities.Schedule"/>
+  <mapping class="entities.ActivityLog"/>
  </session-factory>
 </hibernate-configuration>

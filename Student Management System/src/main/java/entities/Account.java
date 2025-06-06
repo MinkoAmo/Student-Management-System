@@ -1,5 +1,8 @@
-package model;
+package entities;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,7 +11,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,14 +35,16 @@ public class Account {
 	private String id;
 
 	@Column(name = "username", length = 50, unique = true)
-	@Size(max = 50, message = "Username không được dài quá 50 kí tự")
-	@NotEmpty(message = "Username không được để trống")
 	private String username;
 
 	@Column(name = "password", length = 50)
-	@Size(max = 50, message = "Password không được dài quá 50 kí tự")
-	@NotEmpty(message = "Password không được để trống")
 	private String password;
+
+	@Column(name = "email", length = 254, unique = true)
+	@Size(max = 254, message = "Email không được dài quá 254 kí tự")
+	@Email(message = "Email không đúng định dạng")
+	@NotEmpty(message = "Email không được để trống")
+	private String email;
 
 	@Column(name = "role")
 	@Enumerated(EnumType.STRING)
@@ -47,22 +55,27 @@ public class Account {
 	@Enumerated(EnumType.STRING)
 	@NotNull(message = "Vui lòng chọn trạng thái tài khoản")
 	private AccountStatus status;
+	
+	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+	Set<ActivityLog> logs;
 
 	public Account() {
 
 	}
 
-	public Account(String username, String password, Role role, AccountStatus status) {
+	public Account(String username, String password, String email, Role role, AccountStatus status) {
 		this.username = username;
 		this.password = password;
+		this.email = email;
 		this.role = role;
 		this.status = status;
 	}
-	
-	public Account(String id, String username, String password, Role role, AccountStatus status) {
+
+	public Account(String id, String username, String password, String email, Role role, AccountStatus status) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
+		this.email = email;
 		this.role = role;
 		this.status = status;
 	}
@@ -70,7 +83,7 @@ public class Account {
 	public String getId() {
 		return id;
 	}
-	
+
 	public void setId(String id) {
 		this.id = id;
 	}
@@ -107,10 +120,11 @@ public class Account {
 		this.status = status;
 	}
 
-	@Override
-	public String toString() {
-		return "Account [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role
-				+ ", status=" + status + "]";
+	public String getEmail() {
+		return email;
 	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }

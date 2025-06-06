@@ -1,4 +1,4 @@
-package model;
+package entities;
 
 import java.util.Set;
 
@@ -19,7 +19,7 @@ import enums.Major;
 @Entity
 @Table(name = "student_class")
 @PrimaryKeyJoinColumn(name = "student_class_id")
-public class StudentClass extends Class {
+public class StudentClass extends BaseClass {
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "teacher_id")
 	@NotNull(message = "Giáo viên không được để trống")
@@ -71,6 +71,4 @@ public class StudentClass extends Class {
 	public void setCourseYear(int courseYear) {
 		this.courseYear = courseYear;
 	}
-	
-	
 }

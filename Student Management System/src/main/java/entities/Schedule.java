@@ -1,4 +1,4 @@
-package model;
+package entities;
 
 import java.time.LocalDate;
 
@@ -90,11 +90,4 @@ public class Schedule {
 	public void setTeachingClass(TeachingClass teachingClass) {
 		this.teachingClass = teachingClass;
 	}
-
-	@Override
-	public String toString() {
-		return "Schedule [id=" + id + ", date=" + date + ", timeSlot=" + timeSlot + ", room=" + room
-				+ ", teachingClass=" + teachingClass + "]";
-	}
-
 }

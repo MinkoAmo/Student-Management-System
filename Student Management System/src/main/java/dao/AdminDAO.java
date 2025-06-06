@@ -6,7 +6,7 @@ import java.util.Map;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import model.Admin;
+import entities.Admin;
 import util.HibernateUtil;
 
 public class AdminDAO implements DAOInterface<Admin> {
@@ -100,30 +100,25 @@ public class AdminDAO implements DAOInterface<Admin> {
 			switch (nameField) {
 			case "username": {
 				count = (int) session
-						.createQuery("SELECT count(username) FROM Admin a WHERE a.username = :username AND a.id != :id")
+						.createQuery("SELECT count(username) FROM Account a WHERE a.username = :username AND a.id != :id")
 						.setParameter("username", t.getUsername()).setParameter("id", t.getId()).uniqueResult();
-				if (count != 0)
-					return false;
+				break;
+			}
+			case "email": {
+				count = (int) session
+						.createQuery("SELECT count(email) FROM Account a WHERE a.email = :email AND a.id != :id")
+						.setParameter("email", t.getEmail()).setParameter("id", t.getId()).uniqueResult();
 				break;
 			}
 			case "code": {
 				count = (int) session
 						.createQuery("SELECT count(code) FROM Admin a WHERE a.code = :code AND a.id != :id")
 						.setParameter("code", t.getCode()).setParameter("id", t.getId()).uniqueResult();
-				if (count != 0)
-					return false;
-				break;
-			}
-			case "email": {
-				count = (int) session
-						.createQuery("SELECT count(email) FROM Admin a WHERE a.email = :email AND a.id != :id")
-						.setParameter("email", t.getEmail()).setParameter("id", t.getId()).uniqueResult();
-				if (count != 0)
-					return false;
 				break;
 			}
 			}
-			return true;
+			tx.commit();
+			return count == 0;
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (tx != null)

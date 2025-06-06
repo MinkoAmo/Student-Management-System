@@ -1,4 +1,4 @@
-package model;
+package entities;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -103,11 +103,5 @@ public class Grade {
 
 	public void setExamTermScore(float examTermScore) {
 		this.examTermScore = examTermScore;
-	}
-
-	@Override
-	public String toString() {
-		return "Grade [id=" + id + ", student=" + student + ", teachingClass=" + teachingClass + ", midTermScore="
-				+ midTermScore + ", finalTermScore=" + finalTermScore + ", examTermScore=" + examTermScore + "]";
 	}
 }
